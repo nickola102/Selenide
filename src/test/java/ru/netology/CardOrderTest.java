@@ -9,13 +9,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
+
+
 
 public class CardOrderTest {
 
-    LocalDate localDate = LocalDate.now().plusDays(4);
+    LocalDate localDate = LocalDate.now().plusDays(3);
     DateTimeFormatter data = DateTimeFormatter.ofPattern("dd.MM.yyyy");
     String strData = localDate.format(data);
 
@@ -29,7 +29,7 @@ public class CardOrderTest {
         $("[data-test-id='name'] input").val("Иванов Игорь");
         $("[data-test-id='phone'] input").val("+79998887766");
         $("[data-test-id='agreement']").click();
-        $(withText("Забронировать")).click();
+        $(".button__text").click();
         $("[class='notification__content']")
                 .shouldHave(Condition.text("Встреча успешно забронирована на " + (strData) ), Duration.ofSeconds(15));
     }
